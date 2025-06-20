@@ -66,7 +66,7 @@ java QueueingCalculator
 🧑‍💻 Example Outputs
 
 🔹 Single Calculation Mode (M/M/1)
-
+```bash
 Calculation Mode:
 1 - Single calculation Mode
 2 - Comparison calculation
@@ -85,12 +85,13 @@ Lq: 1.3333
 W: 5.0000
 Wq: 3.3333
 P₀ (System empty): 0.3333
-
+```
 
 ---
 
 🔹 Comparison Calculation Mode
 
+```bash
 =======================================================================================
 Welcome to Queue Calculator
 
@@ -138,7 +139,7 @@ P(0 customers):     0.2000    0.4472
                     P(5 customers):     0.0655    0.0027
 =======================================================================================
 Enter [0-to stop enter 1-to continue] :
-
+```
 
 ---
 
