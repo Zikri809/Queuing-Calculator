@@ -67,24 +67,28 @@ java QueueingCalculator
 
 🔹 Single Calculation Mode (M/M/1)
 ```bash
+=======================================================================================
+Welcome to Queue Calculator
 Calculation Mode:
 1 - Single calculation Mode
 2 - Comparison calculation
 Enter desired calculation Mode: 1
+=======================================================================================
 System calculation Mode:
-1 - MM1
-2 - MMC
+1 - MM1 (Single server system) 
+2 - MMC (Multiple server system) 
 Enter desired system: 1
+=======================================================================================
 Enter arrival rate (lambda): 0.4
-Enter service rate (mu): 0.6
-
---- Results ---
-Utilization (ρ): 0.6667
-L: 2.0000
-Lq: 1.3333
-W: 5.0000
-Wq: 3.3333
-P₀ (System empty): 0.3333
+Enter service rate (mu): 0.5
+=======================================================================================
+M/M/1 Results:
+Traffic Intensity (rho): 0.8000
+Expected Number in System (L): 4.0000
+Expected Queue Length (Lq): 3.2000
+Expected Time in System (W): 10.0000 hours
+Expected Waiting Time in Queue (Wq): 8.0000 hours
+=======================================================================================
 ```
 
 ---
@@ -94,7 +98,6 @@ P₀ (System empty): 0.3333
 ```bash
 =======================================================================================
 Welcome to Queue Calculator
-
 Calculation Mode:
 1 - Single calculation Mode
 2 - Comparison calculation
@@ -113,29 +116,18 @@ Enter arrival rate (lambda): 0.4
 Enter service rate (mu): 0.5
 Enter number of servers (c): 3
 =======================================================================================
-
-Calculation Mode:         MM1       MM3
-
+Calculation Mode:
+                                           MM1       MM3
            Traffic Intensity (rho):     0.8000    0.2667
-
      Expected Number in System (L):     4.0000    0.8189
-
         Expected Queue Length (Lq):     3.2000    0.0189
-
        Expected Time in System (W):    10.0000    2.0473
-
-Expected Waiting Time in Queue (Wq):     8.0000    0.0473
-
-P(0 customers):     0.2000    0.4472
-
+Expected Waiting Time in Queue (Wq):    8.0000    0.0473
+                    P(0 customers):     0.2000    0.4472
                     P(1 customers):     0.1600    0.3577
-
                     P(2 customers):     0.1280    0.1431
-
                     P(3 customers):     0.1024    0.0382
-
                     P(4 customers):     0.0819    0.0102
-
                     P(5 customers):     0.0655    0.0027
 =======================================================================================
 Enter [0-to stop enter 1-to continue] :
