@@ -145,6 +145,7 @@ Enter [0-to stop enter 1-to continue] :
 
 📁 Directory Structure
 
+```bash
 Queuing-Calculator/
 └── queuing-calculator/
     └── src/
@@ -153,6 +154,7 @@ Queuing-Calculator/
                 └── org/
                     └── example/
                         └── QueueingCalculator.java
+```
 
 
 ---
