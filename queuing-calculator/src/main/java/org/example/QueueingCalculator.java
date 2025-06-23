@@ -17,6 +17,7 @@ abstract class Queue{
 
     public abstract void Calculate();
 }
+// M/M/1 queueing system implementation (for single server)
 class  MM1 extends Queue{
 
     public MM1(){
@@ -25,24 +26,28 @@ class  MM1 extends Queue{
         Scanner scanner = new Scanner(System.in);
 
         do{
-            System.out.print("Enter arrival rate (lambda): ");
+            // prompt user to enter lambda
+            System.out.print("Enter arrival rate (lambda): ");                  
             this.lambda = scanner.nextDouble();
             while(this.lambda<=0){
-                System.out.println("Invalid Input Lambda cannot be <=0. Please enter again.");
+                //ensure that lambda is greater than zero
+                System.out.println("Invalid Input Lambda cannot be <=0. Please enter again.");      
                 System.out.print("Enter arrival rate (lambda): ");
                 this.lambda = scanner.nextDouble();
             }
-
-            System.out.print("Enter service rate (mu): ");
+            
+            // prompt user to enter mu
+            System.out.print("Enter service rate (mu): ");          
             this.mu = scanner.nextDouble();
             while(this.mu<=0){
-                System.out.println("Invalid Input Mu cannot be <=0. Please enter again.");
+                 //ensure mu is greater than zero
+                System.out.println("Invalid Input Mu cannot be <=0. Please enter again.");     
                 System.out.print("Enter service rate (mu): ");
                 this.mu = scanner.nextDouble();
             }
 
             // checking if the traffic intensity is greater or equal then 1
-            if( this.lambda / (this.c * this.mu) >= 1) {
+            if( this.lambda / (this.c * this.mu) >= 1) {                        
                 System.out.println("The system is unstable because the traffic intensity is greater then 1");
                 System.out.println("Please reenter all the necessary parameters!");
             }
@@ -51,6 +56,7 @@ class  MM1 extends Queue{
         
         int choice;
         do{
+          // set the number of customer(n)
           System.out.print("Would you like to use a custom value of n for calculating P(n)? (1 = yes, 0 = no): ");
           choice = scanner.nextInt();
             if(choice == 1 || choice == 0){
@@ -77,18 +83,29 @@ class  MM1 extends Queue{
                  
 
     }
+    
     public void Calculate(){
+        
+        // calculate traffic intensity
         this.rho= this.lambda / this.mu;
+        
+        // calculate average number of customers for L(in system) and Lq(in queue)
         this.L= this.lambda / (this.mu - this.lambda);
         this.Lq= this.lambda * this.lambda / (this.mu * (this.mu - this.lambda));
+        
+        // calculate waiting time W(in system) and Wq(in queue)
         this.W= 1 / (this.mu - this.lambda);
         this.Wq= this.lambda / (this.mu * (this.mu - this.lambda));
+        
+        // calculate P(n)
         for (int i = 0; i <= n; i++) {
             this.Pn[i] = (1 - this.rho) * Math.pow(this.rho, i);
         }
 
     }
     public void Display(){
+        // Display all the calculated values
+    
         Calculate();
         System.out.printf("M/M/1 Results:%n");
         System.out.printf("Traffic Intensity (rho): %.4f%n", this.rho);
@@ -100,6 +117,8 @@ class  MM1 extends Queue{
 
     }
     public void Display_probability(){
+        // generate and display the probability of having n customers in the system
+        
         Calculate();
         for (int i = 0; i <= n; i++) {
             System.out.printf("P(%d customers): %.4f%n", i, this.Pn[i]);
@@ -107,7 +126,7 @@ class  MM1 extends Queue{
     }
 }
 
-
+// M/M/c queueing system implementation (for multiple server)
 class MMC extends Queue{
     double P0;
 
@@ -116,15 +135,17 @@ class MMC extends Queue{
 
 
         do{
+            // prompt user to enter lambda
             System.out.print("Enter arrival rate (lambda): ");
             this.lambda = scanner.nextDouble();
             while(this.lambda<=0){
+                //ensure lambda is greater than zero
                 System.out.println("Invalid Input Lambda cannot be <=0. Please enter again.");
                 System.out.print("Enter arrival rate (lambda): ");
                 this.lambda = scanner.nextDouble();
             }
 
-
+            // prompt user to enter mu
             System.out.print("Enter service rate (mu): ");
             this.mu = scanner.nextDouble();
             while(this.mu<=0){
@@ -132,9 +153,11 @@ class MMC extends Queue{
                 System.out.print("Enter service rate (mu): ");
                 this.mu = scanner.nextDouble();
             }
+            //prompt user to enter number of servers(c)
             System.out.print("Enter number of servers (c): ");
             this.c = scanner.nextInt();
             while(c<1){
+                // making sure that server is greater than zero
                 System.out.println("Invalid Input Number of Servers cannot be <1. Please enter again.");
                 System.out.print("Enter number of servers (c): ");
                 this.c = scanner.nextInt();
@@ -151,6 +174,7 @@ class MMC extends Queue{
 
         int choice;
         do{
+          // set the number of customer(n)
           System.out.print("Would you like to use a custom value of n for calculating P(n)? (1 = yes, 0 = no): ");
           choice = scanner.nextInt();
             if(choice == 1 || choice == 0){
@@ -177,24 +201,39 @@ class MMC extends Queue{
         
     }
     public void Calculate(){
+        // calculate traffic intensity
         this.rho = this.lambda / (this.c * this.mu);
+        
+        // calculate probability of 0 customer in the system
         double sum = 0;
         for (int i = 0; i < this.c; i++) {
             sum += Math.pow(this.c * this.rho, i) / factorial(i);
         }
         this.P0 = 1 / (sum + Math.pow(this.c * this.rho, this.c) / (factorial(this.c)
                 * (1 - this.rho)));
+        
+        // calculate average number of customers in system, Lq
         this.Lq = this.P0 * Math.pow(this.c * this.rho, this.c) * this.rho / (factorial(this.c)
                 * Math.pow(1 - this.rho, 2));
+        
+        // calculate average number of customer in queue, L
         this.L = this.Lq + this.c * this.rho;
+        
+        // calculate average waiting time in queue, Wq
         this.Wq = Lq / lambda;
+        
+        // calculate average waiting time in system, W
         this.W = this.Wq + 1 / this.mu;
+        
+        // calculate probabilities for P(n) 
         for (int i = 0; i <= this.n; i++) {
             this.Pn[i] = (i < this.c) ? this.P0 * Math.pow(this.c * this.rho, i) / factorial(i) : this.P0 * Math.pow(this.c * this.rho, i) / (Math.pow(this.c, i -this.c) * factorial(this.c));
         }
 
     }
     public void Display(){
+        // Display all the calculated values
+        
         Calculate();
         System.out.printf("M/M/%d Results:%n", this.c);
         System.out.printf("Traffic Intensity (rho): %.4f%n", this.rho);
@@ -207,11 +246,15 @@ class MMC extends Queue{
 
     }
     public void Display_probability(){
+        // generate and display the probability of having n customers in the system
+        
         Calculate();
         for (int i = 0; i <= this.n; i++) {
             System.out.printf("P(%d customers): %.4f%n", i, this.Pn[i]);
         }
     }
+    
+    // calculate factorial of given number
     public long factorial(int i) {
         if (i == 0) return 1;
         long result = 1;
@@ -233,6 +276,7 @@ public static void main(String[] args) {
         System.out.println("=======================================================================================");
         System.out.printf("%sWelcome to Queue Calculator%s%n", "", "");
         System.out.println("Calculation Mode:");
+        // Calculation mode's choices
         System.out.println("1 - Single calculation Mode\n2 - Comparison calculation");
 
         System.out.print("Enter desired calculation Mode: ");
@@ -300,12 +344,11 @@ public static void main(String[] args) {
             System.out.printf("%50s%10.4f%10.4f%n","Expected Queue Length (Lq): ",arry[0].Lq,arry[1].Lq);
             System.out.printf("%50s%10.4f%10.4f%n","Expected Time in System in hours (W): ",arry[0].W,arry[1].W);
             System.out.printf("%50s%10.4f%10.4f%n","Expected Waiting Time in Queue in hours(Wq): ",arry[0].Wq,arry[1].Wq);
-           int largest_length = Math.max(arry[0].Pn.length, arry[1].Pn.length);
+           int largest_length = arry[0].Pn.length > arry[1].Pn.length ? arry[0].Pn.length : arry[1].Pn.length ;
             for(int i = 0; i < largest_length; i++){
                 String queue_0 = i<arry[0].Pn.length ? String.format("%.4f",arry[0].Pn[i] )  : "NA";
                 String queue_1 = i<arry[1].Pn.length ? String.format("%.4f",arry[1].Pn[i] ) : "NA";
-                String probability_label = String.format("P(%d customers): ",i);
-                System.out.printf("%50s%10s%10s%n",probability_label,queue_0,queue_1);
+                System.out.printf("%34sP(%d customers): %10s%10s%n","",i,queue_0,queue_1);
             }
 
 
@@ -317,6 +360,15 @@ public static void main(String[] args) {
 
 
     }
+
+
+
+
+
+
+    }
+ }
+
 
 
 
