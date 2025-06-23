@@ -300,11 +300,12 @@ public static void main(String[] args) {
             System.out.printf("%50s%10.4f%10.4f%n","Expected Queue Length (Lq): ",arry[0].Lq,arry[1].Lq);
             System.out.printf("%50s%10.4f%10.4f%n","Expected Time in System in hours (W): ",arry[0].W,arry[1].W);
             System.out.printf("%50s%10.4f%10.4f%n","Expected Waiting Time in Queue in hours(Wq): ",arry[0].Wq,arry[1].Wq);
-           int largest_length = arry[0].Pn.length > arry[1].Pn.length ? arry[0].Pn.length : arry[1].Pn.length ;
+           int largest_length = Math.max(arry[0].Pn.length, arry[1].Pn.length);
             for(int i = 0; i < largest_length; i++){
                 String queue_0 = i<arry[0].Pn.length ? String.format("%.4f",arry[0].Pn[i] )  : "NA";
                 String queue_1 = i<arry[1].Pn.length ? String.format("%.4f",arry[1].Pn[i] ) : "NA";
-                System.out.printf("%34sP(%d customers): %10s%10s%n","",i,queue_0,queue_1);
+                String probability_label = String.format("P(%d customers): ",i);
+                System.out.printf("%50s%10s%10s%n",probability_label,queue_0,queue_1);
             }
 
 
