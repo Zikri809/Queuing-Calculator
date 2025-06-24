@@ -40,7 +40,7 @@ class  MM1 extends Queue{
             System.out.print("Enter service rate (mu): ");          
             this.mu = scanner.nextDouble();
             while(this.mu<=0){
-                 //ensure mu is greater than zero
+                // ensure mu is greater than zero
                 System.out.println("Invalid Input Mu cannot be <=0. Please enter again.");     
                 System.out.print("Enter service rate (mu): ");
                 this.mu = scanner.nextDouble();
@@ -278,9 +278,9 @@ public static void main(String[] args) {
         System.out.println("Calculation Mode:");
         // Calculation mode's choices
         System.out.println("1 - Single calculation Mode\n2 - Comparison calculation");
-
         System.out.print("Enter desired calculation Mode: ");
         int calculationMode = scanner.nextInt();
+        // Ensure user prompt '1' or '2' only
         while(calculationMode<1 || calculationMode>2){
             System.out.printf("Invalid Input! Please enter again.%n");
             System.out.print("Enter desired calculation Mode: ");
@@ -290,9 +290,11 @@ public static void main(String[] args) {
         if(calculationMode == 1){
             System.out.println("=======================================================================================");
             System.out.println("System calculation Mode:");
+            // Let the user choose between M/M/1 and M/M/c system
             System.out.println("1 - MM1 (Single server system) \n2 - MMC (Multiple server system) ");
             System.out.print("Enter desired system: ");
             int queue_system = scanner.nextInt();
+            // Ensure user prompt '1' or '2' only
             while(queue_system<1 || queue_system>2){
                 System.out.printf("Invalid Input! Please enter again.%n");
                 System.out.println("1 - MM1 (Single server system) \n2 - MMC (Multiple server system) ");
@@ -304,11 +306,13 @@ public static void main(String[] args) {
             if(queue_system == 1){
                 final MM1 MM1_object = new MM1();
                 System.out.println("=======================================================================================");
+                // Display M/M/1 result
                 MM1_object.Display();
             }
             else{
                 final MMC MMC_object = new MMC();
                 System.out.println("=======================================================================================");
+                // Display M/M/c result
                 MMC_object.Display();
             }
 
@@ -320,6 +324,7 @@ public static void main(String[] args) {
                 System.out.println("1 - MM1 (Single server system) \n2 - MMC (Multiple server system) ");
                 System.out.print("Enter desired system: ");
                 int queue_system = scanner.nextInt();
+                // Ensure user prompt '1' or '2' only
                 while(queue_system<1 || queue_system>2){
                     System.out.printf("Invalid Input! Please enter again.%n");
                     System.out.println("1 - MM1 (Single server system) \n2 - MMC (Multiple server system) ");
@@ -337,6 +342,7 @@ public static void main(String[] args) {
                 }
             }
             System.out.println("=======================================================================================");
+            // Display comparison result
             System.out.printf("Comparison Calculation Mode:%n");
             System.out.printf("%50s%10s%10s%n","",arry[0].system_type,arry[1].system_type);
             System.out.printf("%50s%10.4f%10.4f%n","Traffic Intensity (rho): ",arry[0].rho,arry[1].rho);
@@ -360,15 +366,6 @@ public static void main(String[] args) {
 
 
     }
-
-
-
-
-
-
-    }
- }
-
 
 
 
