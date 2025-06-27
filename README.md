@@ -184,6 +184,8 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 
 Zikri – GitHub Profile
 Hamzi - GitHub Profile
+Haziq - Github Profile
+Syauqi - Github Profile
 
 For questions or improvements, feel free to open an issue or pull request!
 
